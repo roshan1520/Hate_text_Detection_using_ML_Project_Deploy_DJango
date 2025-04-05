@@ -1,0 +1,143 @@
+<!-- 
+ 
+
+admin:
+
+username: roshangupta
+password: 1234
+
+
+user:
+
+username: test
+password: 1234
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.jpeg' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/back2.jpeg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 80%;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(22, 21, 21, 1);
+            border-radius: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            padding: 15px 30px;
+            border: 1px solid #007BFF;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            background: #007BFF;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .no-prediction {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome, {{ username }}</h1>
+        <p>You are successfully logged in!</p>
+
+        <div class="btn-container">
+            <a href="{% url 'predict_text' %}">Predict Text</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+
+        <h2>Prediction History</h2>
+
+        {% if predictions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Input Text</th>
+                    <th>Prediction</th>
+                    <th>Confidence</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in predictions %}
+                <tr>
+                    <td>{{ item.text }}</td>
+                    <td>{{ item.prediction }}</td>
+                    <td>{{ item.confidence|floatformat:2 }}</td>
+                    <td>{{ item.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-prediction">No predictions made yet.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

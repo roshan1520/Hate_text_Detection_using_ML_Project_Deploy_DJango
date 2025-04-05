@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.jpeg' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background: rgb(0, 57, 81); */
+            background-image: url("{% static 'images/back.jpeg' %}");
+
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0.98;
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            padding: 50px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            width: 100%;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .image {
+            background: url("{% static 'images/take.jpeg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container" style="display: flex;">
+
+        <div class="image"
+            style="width: 50%; padding: 100px 10px; font-size: 45px;  border-top-right-radius: 30px; color: white;">
+
+        </div>
+
+        <div style="margin: 30px;">
+
+
+            <h2>Register</h2><br><br>
+
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+
+                <label>Username:</label><br>
+                <input type="text" name="username" required><br><br>
+
+                <label>Email:</label><br>
+                <input type="email" name="email" required><br><br>
+
+                <label>Password:</label><br>
+                <input type="password" name="password" required><br><br>
+
+                <button type="submit">Register</button><br>
+            </form>
+
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+
+            {% if success %}
+            <p class="success">{{ success }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Text Classification</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.jpeg' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(0, 57, 81);
+
+
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 400px;
+        }
+
+        input,
+        button {
+            padding: 10px;
+        }
+
+        .container {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"
+        style="width: 40%;  background-color: aliceblue; height: 400px; padding: 10%; border-radius: 30px;">
+
+
+        <center>
+            <h1 style="text-align: center; text-transform: uppercase;"><u>Hate Speech Detection</u></h1>
+            <form method="POST" action="{% url 'predict_text' %}">
+                {% csrf_token %}
+                <label>Enter Text:</label>
+                <input type="text" name="text" placeholder="Enter text here" id="predict" required
+                    style="height: 70px;border-radius: 30px;">
+                <button type="submit"
+                    style="background-color: rgb(65, 97, 19); color: white;  font-size: 30px; border: none; border-radius: 30px;">Predict</button>
+            </form>
+
+
+
+            {% if prediction %}
+            <h2>Prediction: {{ prediction }}</h2>
+            <p>Confidence: {{ confidence }}</p>
+            {% endif %}
+        </center>
+
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>

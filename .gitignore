@@ -1,0 +1,8 @@
+#  .gitignore
+venv/
+__pycache__/
+*.pyc
+*.h5
+db.sqlite3
+.env
+tf_env/
